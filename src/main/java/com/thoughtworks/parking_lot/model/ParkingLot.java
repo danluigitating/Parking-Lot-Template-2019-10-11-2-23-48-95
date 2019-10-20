@@ -1,5 +1,4 @@
 package com.thoughtworks.parking_lot.model;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 

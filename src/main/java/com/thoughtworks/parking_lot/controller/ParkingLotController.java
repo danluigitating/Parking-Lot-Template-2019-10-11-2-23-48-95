@@ -1,7 +1,6 @@
 package com.thoughtworks.parking_lot.controller;
 
 import com.thoughtworks.parking_lot.model.ParkingLot;
-import com.thoughtworks.parking_lot.repository.ParkingLotRepository;
 import com.thoughtworks.parking_lot.service.ParkingLotService;
 import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -27,12 +26,12 @@ public class ParkingLotController {
         return parkingLotService.save(parkingLot);
     }
 
-    @GetMapping(produces = {"application/json"})
+    @GetMapping(value = "/all", produces = {"application/json"})
     public Iterable<ParkingLot> list(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize) {
         return parkingLotService.findAll(page, pageSize);
     }
 
-    @GetMapping(value = "/{name}", produces = {"application/json"})
+    @GetMapping(produces = {"application/json"})
     public ParkingLot getParkingLot(@RequestParam(required = false) String name) {
         return parkingLotService.findByNameContaining(name);
     }
@@ -44,7 +43,7 @@ public class ParkingLotController {
         if (fetchedParkingLot.isPresent()) {
             ParkingLot deletedParkingLot = fetchedParkingLot.get();
             parkingLotService.delete(deletedParkingLot);
-            return new ResponseEntity<>("Company Deleted",HttpStatus.OK);
+            return new ResponseEntity<>("Parking Lot Deleted",HttpStatus.OK);
         }else
             throw new NotFoundException(NOT_FOUND);
     }
