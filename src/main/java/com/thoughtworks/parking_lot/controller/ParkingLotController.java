@@ -33,14 +33,15 @@ public class ParkingLotController {
 
      @PostMapping(value = "/{name}/orders", produces = {"application/json"})
      @ResponseStatus(code = HttpStatus.CREATED)
-     public Orders addOrder(@PathVariable String name , @RequestBody Orders orders) {
+     public ResponseEntity<Orders> addOrder(@PathVariable String name , @RequestBody Orders orders) {
          Optional<ParkingLot> fetchedParkingLot = parkingLotService.findById(name);
 
-         if (fetchedParkingLot.isPresent()) {
-             return ordersService.save(name, orders);
+         if (fetchedParkingLot.isPresent() && (orders.getOrderNum() < fetchedParkingLot.get().getCapacity())) {
+             Orders savedOrders= ordersService.save(name, orders);
+             return new ResponseEntity<>(savedOrders, HttpStatus.OK);
          }
          else
-             return null;
+             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
      }
 
     @GetMapping(value = "/all", produces = {"application/json"})

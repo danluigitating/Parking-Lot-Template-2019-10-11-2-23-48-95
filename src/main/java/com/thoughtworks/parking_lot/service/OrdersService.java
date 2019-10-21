@@ -15,15 +15,12 @@ public class OrdersService {
     private OrdersRepository ordersRepository;
 
     public Orders save(String name, Orders orders) {
-
         LocalDateTime dateTime = LocalDateTime.now();
-
-        orders.setName(name);
-        orders.setCreationTime(dateTime.toString());
-        orders.setCloseTime("NULL");
-        orders.setOrderStatus("OPEN");
-
-        return ordersRepository.save(orders);
+            orders.setName(name);
+            orders.setCreationTime(dateTime.toString());
+            orders.setCloseTime("NULL");
+            orders.setOrderStatus("OPEN");
+            return ordersRepository.save(orders);
     }
 
     public Orders saveModified(Orders orders){
