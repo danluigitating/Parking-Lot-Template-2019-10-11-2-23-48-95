@@ -1,6 +1,7 @@
 package com.thoughtworks.parking_lot.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class ParkingLot {
@@ -9,6 +10,17 @@ public class ParkingLot {
 
     private Integer capacity;
     private String location;
+
+    @OneToMany(cascade= CascadeType.ALL)
+    private List<Orders> orders;
+
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
+    }
 
     public String getName() {
         return name;

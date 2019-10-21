@@ -1,6 +1,6 @@
 package com.thoughtworks.parking_lot.handler;
 
-import error.CustomError;
+import com.thoughtworks.parking_lot.error.CustomError;
 import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;

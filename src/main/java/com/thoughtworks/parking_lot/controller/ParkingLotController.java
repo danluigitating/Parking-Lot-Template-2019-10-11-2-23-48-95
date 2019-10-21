@@ -36,7 +36,7 @@ public class ParkingLotController {
      public ResponseEntity<Orders> addOrder(@PathVariable String name , @RequestBody Orders orders) {
          Optional<ParkingLot> fetchedParkingLot = parkingLotService.findById(name);
 
-         if (fetchedParkingLot.isPresent() && (orders.getOrderNum() < fetchedParkingLot.get().getCapacity())) {
+         if (fetchedParkingLot.isPresent()) {
              Orders savedOrders= ordersService.save(name, orders);
              return new ResponseEntity<>(savedOrders, HttpStatus.OK);
          }
@@ -44,13 +44,13 @@ public class ParkingLotController {
              return new ResponseEntity<>(HttpStatus.NOT_FOUND);
      }
 
-    @GetMapping(value = "/all", produces = {"application/json"})
+    @GetMapping(produces = {"application/json"})
     public Iterable<ParkingLot> list(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize) {
         return parkingLotService.findAll(page, pageSize);
     }
 
-    @GetMapping(produces = {"application/json"})
-    public ParkingLot getParkingLot(@RequestParam(required = false) String name) {
+    @GetMapping(value = "/{name}", produces = {"application/json"})
+    public ParkingLot getParkingLot(@PathVariable String name) {
         return parkingLotService.findByNameContaining(name);
     }
 
